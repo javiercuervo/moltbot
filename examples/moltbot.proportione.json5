@@ -1,0 +1,107 @@
+// Example configuration for Proportione deployment
+// Copy to ~/.clawdbot/moltbot.json and customize
+{
+  // Gateway settings
+  gateway: {
+    mode: "local",  // "local" for development, "cloud" for production
+    port: 18789
+  },
+
+  // Bot identity
+  identity: {
+    name: "Asistente Proportione",
+    // Optional: custom system prompt additions
+    // personality: "You are a helpful assistant for Proportione."
+  },
+
+  // Channel configuration
+  channels: {
+    // WhatsApp Web (via Baileys)
+    // Login with: moltbot channels login --channel whatsapp
+    whatsapp: {
+      // DM access control
+      dmPolicy: "allowlist",  // "allowlist", "pairing", "open", "disabled"
+      allowFrom: [
+        "+34XXXXXXXXX"  // Replace with your phone number (E.164 format)
+      ],
+
+      // Group settings
+      groupPolicy: "disabled",  // Start with DMs only for safety
+
+      // Optional: acknowledgment reaction on message receipt
+      // ackReaction: {
+      //   emoji: "👀",
+      //   direct: true,
+      //   group: "mentions"
+      // },
+
+      // Optional: read receipts
+      sendReadReceipts: true,
+
+      // Message limits
+      textChunkLimit: 4000,
+      mediaMaxMb: 50
+    }
+
+    // Email channel (uncomment to enable)
+    // Requires EMAIL_* variables in .env
+    // email: {
+    //   enabled: true,
+    //   dmPolicy: "allowlist",
+    //   allowFrom: ["allowed@example.com"]
+    // }
+  },
+
+  // Agent configuration
+  agents: {
+    defaults: {
+      // Default model
+      model: "claude-sonnet-4-20250514",
+
+      // Media limits for outbound messages
+      mediaMaxMb: 5,
+
+      // Optional: heartbeat configuration
+      // heartbeat: {
+      //   every: "1h",
+      //   prompt: "Check if there are pending tasks."
+      // }
+    }
+  },
+
+  // Session configuration
+  session: {
+    // Session scope: "global", "channel", "peer"
+    scope: "peer",
+
+    // Idle timeout before session reset
+    idleMinutes: 30
+  },
+
+  // Message settings
+  messages: {
+    // Optional: prefix for bot responses
+    // responsePrefix: "[Proportione] ",
+
+    // Group chat settings
+    groupChat: {
+      // Patterns that trigger the bot in groups (besides @mentions)
+      mentionPatterns: ["proportione", "asistente"]
+    }
+  },
+
+  // Logging
+  logging: {
+    level: "info",  // "debug", "info", "warn", "error"
+    file: "/tmp/moltbot/moltbot.log"
+  },
+
+  // Plugins (Phase 1+)
+  plugins: {
+    // Feria mode for offline operation (Phase 1)
+    // "feria-mode": {
+    //   enabled: true,
+    //   queuePath: "~/.clawdbot/feria-queue.db"
+    // }
+  }
+}
