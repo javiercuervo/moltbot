@@ -1,0 +1,63 @@
+{
+  "id": "feria-mode",
+  "name": "Feria Mode (Offline Queue)",
+  "description": "Queue incoming messages when offline, process when connectivity is restored",
+  "version": "2026.1.28",
+  "configSchema": {
+    "type": "object",
+    "properties": {
+      "dbPath": {
+        "type": "string",
+        "description": "Path to SQLite database file"
+      },
+      "connectivityCheckIntervalSec": {
+        "type": "number",
+        "description": "Interval in seconds to check connectivity",
+        "default": 30
+      },
+      "connectivityCheckUrl": {
+        "type": "string",
+        "description": "URL to ping for connectivity check"
+      },
+      "maxQueueSize": {
+        "type": "number",
+        "description": "Maximum number of messages to queue",
+        "default": 1000
+      },
+      "maxQueueAgeHours": {
+        "type": "number",
+        "description": "Maximum age in hours for queued messages",
+        "default": 24
+      },
+      "autoSync": {
+        "type": "boolean",
+        "description": "Auto-sync when connectivity is restored",
+        "default": true
+      },
+      "syncBatchSize": {
+        "type": "number",
+        "description": "Messages to process per sync batch",
+        "default": 10
+      }
+    },
+    "additionalProperties": false
+  },
+  "uiHints": {
+    "dbPath": {
+      "label": "Queue Database Path",
+      "placeholder": "~/.clawdbot/feria-queue.db",
+      "advanced": true
+    },
+    "connectivityCheckIntervalSec": {
+      "label": "Check Interval (seconds)",
+      "placeholder": "30"
+    },
+    "maxQueueSize": {
+      "label": "Max Queue Size",
+      "placeholder": "1000"
+    },
+    "autoSync": {
+      "label": "Auto-Sync"
+    }
+  }
+}

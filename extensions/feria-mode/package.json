@@ -1,0 +1,14 @@
+{
+  "name": "@moltbot/feria-mode",
+  "version": "2026.1.28",
+  "type": "module",
+  "description": "Offline queue mode for Moltbot - stores incoming messages when offline and syncs when reconnected",
+  "dependencies": {
+    "better-sqlite3": "^11.0.0"
+  },
+  "moltbot": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}
