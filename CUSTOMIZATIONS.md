@@ -7,6 +7,46 @@ This file tracks all customizations made to this fork for easier upstream rebasi
 This fork is maintained by Proportione for deploying a multichannel assistant bot.
 Changes are kept minimal to reduce merge conflicts with upstream.
 
+---
+
+## ESTADO ACTUAL DEL PROYECTO (2026-01-28)
+
+### Fase 1: Local Experimental - EN PROGRESO
+
+**Completado:**
+- [x] Fork configurado con remotes (origin=fork, upstream=original)
+- [x] Node 22 configurado (.nvmrc)
+- [x] Build funcionando correctamente
+- [x] Gateway corriendo en local
+- [x] WhatsApp vinculado y operativo
+- [x] Plugin feria-mode scaffolding creado
+- [x] Documentación inicial (BUILD_NOTES.md, CUSTOMIZATIONS.md)
+- [x] Feature --qr-file para login WhatsApp
+- [x] Repositorio subido a github.com/javiercuervo/moltbot
+
+**Pendiente Fase 1:**
+- [ ] Probar plugin feria-mode en producción
+- [ ] Configurar canal Email (IMAP/SMTP)
+- [ ] Test end-to-end de flujo completo (mensaje entrante → respuesta)
+- [ ] Documentar identidad/personalidad del agente
+
+### Próximo Paso Inmediato
+
+**Configurar y probar el canal de Email:**
+1. Añadir credenciales EMAIL_* a `.env`
+2. Habilitar canal email en `~/.moltbot-javier/moltbot.json`
+3. Probar envío/recepción de emails
+4. Verificar integración con el agente
+
+### Fases Futuras
+
+| Fase | Descripción | Estado |
+|------|-------------|--------|
+| 2. Proportione Cloud | Migrar a servidor dedicado, systemd/Docker, SSL | Pendiente |
+| 3. Instituto | Google Workspace (Calendar+Gmail), SSO, audit logs | Pendiente |
+
+---
+
 ## Customization Log
 
 ### 2026-01-28 - Initial Setup
