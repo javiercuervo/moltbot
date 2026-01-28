@@ -215,6 +215,7 @@ export function registerChannelsCli(program: Command) {
     .option("--channel <channel>", "Channel alias (default: whatsapp)")
     .option("--account <id>", "Account id (accountId)")
     .option("--verbose", "Verbose connection logs", false)
+    .option("--qr-file <path>", "Save QR code as PNG image file")
     .action(async (opts) => {
       await runChannelsCommandWithDanger(async () => {
         await runChannelLogin(
@@ -222,6 +223,7 @@ export function registerChannelsCli(program: Command) {
             channel: opts.channel as string | undefined,
             account: opts.account as string | undefined,
             verbose: Boolean(opts.verbose),
+            qrFile: opts.qrFile as string | undefined,
           },
           defaultRuntime,
         );

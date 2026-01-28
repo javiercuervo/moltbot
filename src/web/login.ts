@@ -1,3 +1,5 @@
+import fs from "node:fs";
+import path from "node:path";
 import { DisconnectReason } from "@whiskeysockets/baileys";
 import { loadConfig } from "../config/config.js";
 import { danger, info, success } from "../globals.js";
@@ -5,6 +7,7 @@ import { logInfo } from "../logger.js";
 import { defaultRuntime, type RuntimeEnv } from "../runtime.js";
 import { formatCliCommand } from "../cli/command-format.js";
 import { resolveWhatsAppAccount } from "./accounts.js";
+import { renderQrPngBase64 } from "./qr-image.js";
 import { createWaSocket, formatError, logoutWeb, waitForWaConnection } from "./session.js";
 
 export async function loginWeb(
@@ -12,12 +15,30 @@ export async function loginWeb(
   waitForConnection?: typeof waitForWaConnection,
   runtime: RuntimeEnv = defaultRuntime,
   accountId?: string,
+  qrFile?: string,
 ) {
   const wait = waitForConnection ?? waitForWaConnection;
   const cfg = loadConfig();
   const account = resolveWhatsAppAccount({ cfg, accountId });
+
+  const onQr = qrFile
+    ? async (qr: string) => {
+        try {
+          const base64 = await renderQrPngBase64(qr, { scale: 10 });
+          const buffer = Buffer.from(base64, "base64");
+          const resolvedPath = path.resolve(qrFile);
+          fs.writeFileSync(resolvedPath, buffer);
+          console.log(success(`QR code saved to: ${resolvedPath}`));
+          console.log(info("Open the file and scan it with WhatsApp → Linked Devices."));
+        } catch (err) {
+          console.error(danger(`Failed to save QR file: ${String(err)}`));
+        }
+      }
+    : undefined;
+
   const sock = await createWaSocket(true, verbose, {
     authDir: account.authDir,
+    onQr,
   });
   logInfo("Waiting for WhatsApp connection...", runtime);
   try {
